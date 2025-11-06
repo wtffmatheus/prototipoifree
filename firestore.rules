@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // REGRA CORRIGIDA para a coleção "users"
+    match /users/{userId} {
+      // Permite que um usuário logado LEIA e ESCREVA em seu próprio documento.
+      // A permissão 'write' inclui 'create', 'update', e 'delete'.
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Regra para a coleção "vagas" (continua a mesma)
+    match /vagas/{vagaId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.resource.data.companyId == request.auth.uid;
+      allow update, delete: if false; // Por segurança, ninguém pode alterar ou apagar vagas ainda.
+    }
+  }
+}

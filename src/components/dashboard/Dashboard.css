@@ -1,0 +1,87 @@
+/* src/components/dashboard/Dashboard.css */
+.vagas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.vaga-card {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+.vaga-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.vaga-card h4 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-color); /* Usa variável */
+  margin: 0 0 10px 0;
+}
+
+.vaga-card .company-name {
+  font-size: 1rem;
+  color: var(--text-secondary-color); /* Usa variável */
+  margin-bottom: 20px;
+}
+
+.vaga-info {
+  margin-bottom: 20px;
+}
+
+.vaga-detail {
+  font-size: 1rem;
+  color: var(--text-color); /* Usa variável */
+  line-height: 1.6;
+  margin: 5px 0;
+}
+
+.vaga-card .remuneration {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-top: auto;
+}
+
+.apply-button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+.apply-button:hover {
+  background-color: #e65c5c;
+}
+
+.apply-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.apply-button.in-analysis {
+  background-color: #FFC371;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.apply-button.in-analysis:hover {
+  background-color: #FFC371;
+}
