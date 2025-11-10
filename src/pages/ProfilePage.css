@@ -1,77 +1,180 @@
-/* src/pages/ProfilePage.css */
-.profile-card {
+
+/* --- NOVO LAYOUT EM GRID --- */
+.profile-grid-container {
+  display: grid;
+  grid-template-columns: 300px 1fr; /* Coluna fixa à esquerda, coluna flexível à direita */
+  gap: 30px;
+  align-items: start;
+}
+
+/* Coluna da Esquerda */
+.profile-left-column {
+  position: sticky; /* Faz o perfil ficar fixo ao rolar a página */
+  top: 100px; /* 70px da navbar + 30px de espaço */
+}
+
+.profile-card-main {
   background-color: var(--card-bg-color);
   border: 1px solid var(--border-color);
   border-radius: 12px;
   box-shadow: var(--card-shadow);
   padding: 30px;
-  max-width: 800px;
-  margin: 0 auto;
+  text-align: center;
   transition: background-color 0.3s, border-color 0.3s;
 }
 
-.profile-header {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  border-bottom: 1px solid var(--border-color); /* Usa variável */
-  padding-bottom: 25px;
-  margin-bottom: 25px;
-  transition: border-color 0.3s;
-}
-
-.profile-avatar {
-  width: 100px;
-  height: 100px;
+.profile-avatar-large {
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
+  margin-bottom: 20px;
+  border: 3px solid var(--border-color);
 }
 
-.profile-info h2 {
+.profile-card-main h2 {
   margin: 0 0 5px 0;
-  font-size: 2rem;
-  color: var(--text-color); /* Usa variável */
+  font-size: 1.8rem;
+  color: var(--text-color);
 }
 
-.profile-info p {
-  margin: 0;
-  color: var(--text-secondary-color); /* Usa variável */
+.profile-specialty {
+  color: var(--text-secondary-color);
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.profile-rating {
+  color: #FFC371;
   font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+.profile-rating span {
+  color: var(--text-secondary-color);
+  font-size: 0.9rem;
+  margin-left: 5px;
 }
 
-.profile-details h3 {
+.edit-profile-button,
+.view-as-button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.edit-profile-button {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  text-decoration: none;
+  display: block;
+}
+.edit-profile-button:hover {
+  background-color: #e65c5c;
+}
+
+.view-as-button {
+  background: none;
+  color: var(--text-secondary-color);
+  border: none;
+  margin-top: 10px;
+}
+.view-as-button:hover {
+  color: var(--primary-color);
+}
+
+
+/* Coluna da Direita */
+.profile-right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.profile-details-card {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  padding: 30px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.profile-details-card h3 {
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--text-color); /* Usa variável */
-  margin-bottom: 20px;
+  color: var(--text-color);
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 15px;
 }
 
-.profile-details ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.profile-bio {
+  color: var(--text-color);
+  line-height: 1.7;
 }
 
-.profile-details li {
+/* Habilidades */
+.skills-container {
   display: flex;
-  justify-content: space-between;
-  padding: 15px 0;
-  font-size: 1rem;
-  border-bottom: 1px solid var(--border-color); /* Usa variável */
-  transition: border-color 0.3s;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.profile-details li:last-child {
-  border-bottom: none;
-}
-
-.profile-details strong {
-  color: var(--text-secondary-color); /* Usa variável */
+.skill-tag {
+  background-color: var(--bg-color);
+  color: var(--text-secondary-color);
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
   font-weight: 500;
+  border: 1px solid var(--border-color);
 }
 
-.profile-details span {
-  color: var(--text-color); /* Usa variável */
-  font-weight: 400;
-  text-align: right;
+/* Avaliações */
+.no-reviews {
+  color: var(--text-secondary-color);
+  font-style: italic;
+}
+
+.review-card {
+  border-bottom: 1px solid var(--border-color);
+  padding: 20px 0;
+}
+.review-card:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.review-card:first-child {
+  padding-top: 0;
+}
+
+.review-rating-stars {
+  font-size: 1.2rem;
+  color: #FFC371; /* Cor de estrela */
+  margin-bottom: 10px;
+}
+
+.review-comment {
+  font-style: italic;
+  color: var(--text-color);
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.review-company {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary-color);
+}
+
+.profile-email {
+  color: var(--text-secondary-color);
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  word-break: break-all; /* Garante que emails longos não quebrem o layout */
 }

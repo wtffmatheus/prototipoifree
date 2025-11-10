@@ -1,4 +1,3 @@
-// src/components/auth/Register.js
 import React, { useState } from 'react';
 import { auth, db } from '../../firebase/config';
 import { createUserWithEmailAndPassword } from "firebase/auth";

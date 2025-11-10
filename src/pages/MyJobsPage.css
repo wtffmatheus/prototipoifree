@@ -1,0 +1,71 @@
+/* src/pages/MyJobsPage.css */
+.tabs-container {
+  display: flex;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 30px;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  color: var(--text-secondary-color);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 15px 30px;
+  cursor: pointer;
+  position: relative;
+  top: 2px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.tab-button:hover {
+  color: var(--text-color);
+}
+
+.tab-button.active {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.no-jobs-message {
+  color: var(--text-secondary-color);
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+/* Badge de Status */
+.job-status-badge {
+  margin-top: 20px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.status-em-análise {
+  background-color: #fff8e1; /* Amarelo claro */
+  color: #ffa000;
+}
+body.dark-mode .status-em-análise {
+  background-color: #4e3a00;
+  color: #ffca28;
+}
+
+.status-aprovado {
+  background-color: #e8f5e9; /* Verde claro */
+  color: #388e3c;
+}
+body.dark-mode .status-aprovado {
+  background-color: #0c330e;
+  color: #66bb6a;
+}
+
+.status-concluído {
+  background-color: var(--bg-color); /* Cinza/Fundo claro */
+  color: var(--text-secondary-color);
+  border: 1px solid var(--border-color);
+}

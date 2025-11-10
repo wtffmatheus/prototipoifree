@@ -1,14 +1,11 @@
-/* src/index.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
-/* --- Reset CSS --- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* --- TEMA CLARO (PADRÃO) --- */
 :root {
   --primary-color: #FF6B6B;
   --text-color: #333;
@@ -19,7 +16,6 @@
   --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
 }
 
-/* --- TEMA ESCURO --- */
 body.dark-mode {
   --primary-color: #FF8A80;
   --text-color: #e3dfda;
@@ -41,7 +37,6 @@ body {
   color: var(--text-color);
 }
 
-/* --- Layout Global --- */
 .main-content {
   padding-top: 70px;
 }
@@ -65,7 +60,6 @@ body {
   font-size: 1.5rem;
 }
 
-/* --- Auth Page Layout (CORRIGIDO) --- */
 .auth-container {
   display: flex;
   justify-content: center;
@@ -96,7 +90,6 @@ body {
   margin-bottom: 30px;
 }
 
-/* --- Formulários e Botões da Auth Page (CORRIGIDO) --- */
 .auth-form {
   display: flex;
   flex-direction: column;
@@ -130,7 +123,6 @@ body {
 }
 .auth-button:hover { background: #e65c5c; }
 
-/* --- Componentes da Auth Page (CORRIGIDO) --- */
 .auth-separator {
   display: flex;
   align-items: center;

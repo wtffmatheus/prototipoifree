@@ -1,4 +1,3 @@
-// src/components/auth/AuthPage.js
 import React, { useState } from 'react';
 import Login from './Login';
 import Register from './Register';
@@ -11,7 +10,7 @@ const AuthPage = () => {
   const [isLoginView, setIsLoginView] = useState(true);
 
   const handleGoogleLogin = async () => {
-    // Adicionamos console.logs para depuração
+
     console.log("Iniciando login com Google...");
     const provider = new GoogleAuthProvider();
     try {
@@ -36,11 +35,9 @@ const AuthPage = () => {
       } else {
         console.log("Usuário já existe no Firestore. Login irá proceder.");
       }
-      // Se tudo deu certo, o App.js deve detectar a mudança e redirecionar.
       console.log("Processo de login com Google finalizado. Aguardando redirecionamento...");
 
     } catch (error) {
-      // Isso mostrará qualquer erro que ocorrer durante o processo
       console.error("ERRO DETALHADO no login com Google:", error);
       alert("Ocorreu um erro ao tentar fazer login com o Google. Verifique o console para mais detalhes.");
     }
@@ -49,7 +46,6 @@ const AuthPage = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        {/* ... o resto do seu JSX continua o mesmo ... */}
         <div className="auth-header">
           <h1>Bem-vindo ao iFree</h1>
           <p>Conectando talentos da gastronomia a grandes oportunidades.</p>

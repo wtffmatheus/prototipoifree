@@ -1,4 +1,3 @@
-/* src/components/common/Modal.css */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -53,7 +52,6 @@
 .modal-button-link:hover {
   background-color: #e65c5c;
 }
-/* Adicionar no final de Modal.css */
 
 .modal-content p {
   line-height: 1.6;
