@@ -1,35 +1,33 @@
 // seed.js
-// Este script RODA NO SEU COMPUTADOR (Node.js), não no navegador.
-
 const admin = require('firebase-admin');
 
-// Importa nossos dados fictícios
-// Usamos o 'require' aqui porque estamos em um ambiente Node.js
-const { mockFreelancers, mockCompanies, mockVagas, mockReviews, mockApplications } = require('./src/data/mockData.js');
+// Importa os novos dados de reviews de empresas
+const { 
+  mockFreelancers, 
+  mockCompanies, 
+  mockVagas, 
+  mockReviews, 
+  mockApplications, 
+  mockCompanyReviews // IMPORTAÇÃO ADICIONADA
+} = require('./src/data/mockData.js');
 
-// Importa sua Chave Mestra
 const serviceAccount = require('./serviceAccountKey.json');
 
-// Inicializa o app com privilégios de Administrador
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
 const db = admin.firestore();
 
-// Função principal para popular o banco
 async function seedDatabase() {
   console.log("--- INICIANDO SCRIPT DE ADMIN ---");
-  
-  // Objeto para mapear IDs fáceis para os IDs reais das vagas
   const vagaIdMap = {};
 
   try {
-    // Limpa o banco antes de começar (opcional, mas recomendado)
-    // ATENÇÃO: Isso apaga tudo. Descomente apenas se tiver certeza.
-    // await deleteCollection('users');
-    // await deleteCollection('vagas');
-    // console.log("Coleções antigas limpas.");
+    console.log("Limpando coleções antigas...");
+    await deleteCollection('users');
+    await deleteCollection('vagas');
+    console.log("Coleções antigas limpas.");
 
     console.log("Inserindo Freelancers...");
     for (const uid in mockFreelancers) {
@@ -53,14 +51,29 @@ async function seedDatabase() {
     }
     console.log("✅ Vagas inseridas!");
 
-    console.log("Inserindo Avaliações (Reviews)...");
+    console.log("Inserindo Avaliações de Freelancers (Reviews)...");
     for (const freelancerId in mockReviews) {
       const reviews = mockReviews[freelancerId];
       for (const review of reviews) {
         await db.collection("users").doc(freelancerId).collection("reviews").add({ ...review, createdAt: admin.firestore.FieldValue.serverTimestamp() });
       }
     }
-    console.log("✅ Avaliações inseridas!");
+    console.log("✅ Avaliações de Freelancers inseridas!");
+    
+    // --- LÓGICA ADICIONADA ---
+    console.log("Inserindo Avaliações de Empresas (Company Reviews)...");
+    for (const companyId in mockCompanyReviews) {
+      const reviews = mockCompanyReviews[companyId];
+      for (const review of reviews) {
+        // Salva na subcoleção 'reviews' do documento da empresa
+        await db.collection("users").doc(companyId).collection("reviews").add({
+          ...review,
+          createdAt: admin.firestore.FieldValue.serverTimestamp()
+        });
+      }
+    }
+    console.log("✅ Avaliações de Empresas inseridas!");
+    // -------------------------
     
     console.log("Inserindo Candidaturas Fictícias...");
     for (const app of mockApplications) {
@@ -94,16 +107,15 @@ async function seedDatabase() {
   }
 }
 
-// (Opcional) Função para apagar coleções - CUIDADO
+// ... (Função deleteCollection continua a mesma) ...
 async function deleteCollection(collectionPath) {
   const collectionRef = db.collection(collectionPath);
-  const snapshot = await collectionRef.get();
+  const snapshot = await collectionRef.limit(100).get(); 
+  if (snapshot.empty) { return; }
   const batch = db.batch();
-  snapshot.docs.forEach(doc => {
-    batch.delete(doc.ref);
-  });
+  snapshot.docs.forEach(doc => { batch.delete(doc.ref); });
   await batch.commit();
+  return deleteCollection(collectionPath);
 }
 
-// Roda a função
 seedDatabase();

@@ -6,6 +6,7 @@ import { doc, getDoc, collection, getDocs, query, orderBy } from 'firebase/fires
 import './ProfilePage.css';
 
 const ProfilePage = () => {
+  // A CORREÇÃO ESTÁ AQUI: Removido o sinal de igual extra
   const [profileData, setProfileData] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,12 +23,12 @@ const ProfilePage = () => {
           const data = docSnap.data();
           setProfileData(data);
 
-          if (data.role === 'freelancer') {
-            const reviewsRef = collection(db, 'users', user.uid, 'reviews');
-            const q = query(reviewsRef, orderBy('createdAt', 'desc'));
-            const querySnapshot = await getDocs(q);
-            setReviews(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-          }
+          const reviewsRef = collection(db, 'users', user.uid, 'reviews');
+          const q = query(reviewsRef, orderBy('createdAt', 'desc'));
+          const querySnapshot = await getDocs(q);
+          const fetchedReviews = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setReviews(fetchedReviews);
+          
         } else {
           console.error("Não foi encontrado um perfil para este usuário.");
         }
@@ -41,8 +42,7 @@ const ProfilePage = () => {
   if (loading) { return <div className="loading-screen">Carregando perfil...</div>; }
   if (!profileData) { return <div className="dashboard-page"><h1 className="page-header">Perfil não encontrado</h1></div>; }
 
-  // O 'email' agora será usado
-  const { displayName, email, role, specialty, rating, photoURL, bio, skills } = profileData;
+  const { displayName, email, role, specialty, rating, photoURL, bio, skills, field } = profileData;
 
   const renderStars = (ratingValue) => (
     <div className="profile-rating">
@@ -63,25 +63,23 @@ const ProfilePage = () => {
               className="profile-avatar-large" 
             />
             <h2>{displayName}</h2>
-            {/* LINHA DO E-MAIL ADICIONADA AQUI */}
             <p className="profile-email">{email}</p> 
-            <p className="profile-specialty">{specialty || (role === 'company' ? 'Empresa Verificada' : 'Freelancer')}</p>
+            <p className="profile-specialty">{specialty || (role === 'company' ? (field || 'Empresa') : 'Freelancer')}</p>
             {role === 'freelancer' && rating && renderStars(rating)}
-            
             <Link to="/profile-edit" className="edit-profile-button">
               Editar Perfil
             </Link>
           </div>
         </div>
+
         <div className="profile-right-column">
-          {/* ... (o resto da página de perfil continua o mesmo) ... */}
           {bio && (
             <div className="profile-details-card">
-              <h3>Sobre</h3>
+              <h3>{role === 'freelancer' ? 'Sobre Mim' : 'Sobre a Empresa'}</h3>
               <p className="profile-bio">{bio}</p>
             </div>
           )}
-          {skills && skills.length > 0 && (
+          {role === 'freelancer' && skills && skills.length > 0 && (
             <div className="profile-details-card">
               <h3>Habilidades</h3>
               <div className="skills-container">
@@ -91,26 +89,26 @@ const ProfilePage = () => {
               </div>
             </div>
           )}
-          {role === 'freelancer' && (
-            <div className="profile-details-card">
-              <h3>Avaliações Recebidas</h3>
-              {reviews.length === 0 ? (
-                <p className="no-reviews">Nenhuma avaliação recebida ainda.</p>
-              ) : (
-                <div className="reviews-list">
-                  {reviews.map(review => (
-                    <div key={review.id} className="review-card">
-                      <div className="review-rating-stars">
-                        {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
-                      </div>
-                      <p className="review-comment">"{review.comment}"</p>
-                      <span className="review-company">— {review.companyName}</span>
+          <div className="profile-details-card">
+            <h3>{role === 'freelancer' ? 'Avaliações Recebidas' : 'Avaliações de Freelancers'}</h3>
+            {reviews.length === 0 ? (
+              <p className="no-reviews">Nenhuma avaliação recebida ainda.</p>
+            ) : (
+              <div className="reviews-list">
+                {reviews.map(review => (
+                  <div key={review.id} className="review-card">
+                    <div className="review-rating-stars">
+                      {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
                     </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
+                    <p className="review-comment">"{review.comment}"</p>
+                    <span className="review-company">
+                      — {review.companyName || review.freelancerName}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

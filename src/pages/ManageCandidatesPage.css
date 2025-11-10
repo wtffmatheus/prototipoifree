@@ -1,0 +1,94 @@
+/* src/pages/ManageCandidatesPage.css */
+
+.job-summary-card {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: var(--card-shadow);
+}
+.job-summary-card h2 {
+  margin: 0 0 10px 0;
+  color: var(--text-color);
+}
+.job-summary-card p {
+  color: var(--text-secondary-color);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.candidates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.candidate-card {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.candidate-info h4 {
+  color: var(--text-color);
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin: 0 0 5px 0;
+}
+.candidate-info p {
+  color: var(--text-secondary-color);
+  font-size: 0.9rem;
+  margin: 0 0 10px 0;
+}
+.candidate-status {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.status-em-análise {
+  background-color: #fff8e1; color: #ffa000;
+}
+.status-aprovado {
+  background-color: #e8f5e9; color: #388e3c;
+}
+.status-recusado {
+  background-color: #ffebee; color: #d32f2f;
+}
+/* Dark mode status */
+body.dark-mode .status-em-análise { background-color: #4e3a00; color: #ffca28; }
+body.dark-mode .status-aprovado { background-color: #0c330e; color: #66bb6a; }
+body.dark-mode .status-recusado { background-color: #4a0f0f; color: #ef9a9a; }
+
+
+.candidate-actions {
+  display: flex;
+  gap: 10px;
+}
+.candidate-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+.candidate-button:hover {
+  opacity: 0.8;
+}
+.candidate-button.approve {
+  background-color: #4CAF50; /* Verde */
+  color: white;
+}
+.candidate-button.reject {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}

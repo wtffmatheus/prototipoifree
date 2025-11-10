@@ -1,0 +1,76 @@
+/* src/components/dashboard/CompanyDashboard.css */
+
+/* Define a nova cor primária apenas para esta seção do app */
+.company-dashboard {
+  --company-primary-color: #4A90E2; /* Um azul profissional */
+}
+
+/* Estiliza o botão de "Postar Vaga" com a nova cor */
+.post-vaga-button {
+  background-color: var(--company-primary-color);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: inline-block; /* Mude de 'block' para 'inline-block' */
+  margin-bottom: 30px;
+  text-decoration: none; /* Adiciona para o caso do Link */
+}
+.post-vaga-button:hover {
+  background-color: #357ABD;
+}
+
+/* Garante que o link do card não tenha sublinhado */
+.company-vaga-card-link {
+  text-decoration: none;
+}
+
+/* Estilo do card de vaga para a empresa */
+.company-vaga-card {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  padding: 25px;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.company-vaga-card-link:hover .company-vaga-card {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: var(--company-primary-color);
+}
+
+.company-vaga-card h4 {
+  color: var(--text-color);
+  font-size: 1.4rem;
+  margin: 0 0 10px 0;
+}
+
+.company-vaga-card p {
+  color: var(--text-secondary-color);
+  margin: 0;
+}
+
+/* Destaque para o contador de candidaturas */
+.candidates-count {
+  text-align: center;
+  padding-left: 20px; /* Adiciona um espaçamento */
+}
+.candidates-count .count {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--company-primary-color);
+  line-height: 1;
+}
+.candidates-count .label {
+  color: var(--text-secondary-color);
+  font-size: 0.9rem;
+}
